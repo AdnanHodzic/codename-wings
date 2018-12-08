@@ -12,8 +12,8 @@ func main() {
 	http.HandleFunc("/", root)
 	http.HandleFunc("/homersimpson/", render_homer)
 	http.HandleFunc("/homer.png", display_homer)
-	http.HandleFunc("/covilha/", covilha)
-	http.ListenAndServe(":8080", nil)
+	http.HandleFunc("/covilha/", covilha_time)
+	http.ListenAndServe(":80", nil)
 }
 
 func root(w http.ResponseWriter, req *http.Request) {
@@ -32,7 +32,7 @@ func display_homer(w http.ResponseWriter, req *http.Request) {
 	http.ServeFile(w, req, "homer.png")
 }
 
-func covilha(w http.ResponseWriter, req *http.Request) {
+func covilha_time(w http.ResponseWriter, req *http.Request) {
 	// time in current location + output format
 	t := time.Now()
 	tf := t.Format(time.Kitchen)
