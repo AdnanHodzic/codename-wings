@@ -4,9 +4,9 @@
 
 Starts a (golang based) HTTP server on port 8080 with web app that has basic routing functionality, i.e:
 
-* Displays which links are available: http://localhost
-* Displays picture of Homer Simpson: http://localhost/homersimpson
-* Displays current time in Amsterdam and in Covilha, Portugal: http://localhost/covilha
+* Displays which links are available: http://wings.hodzic.org
+* Displays picture of Homer Simpson: http://wings.hodzic.org/homersimpson
+* Displays current time in Amsterdam and in Covilha, Portugal: http://wings.hodzic.org/covilha
 
 ### Golang run example:
 
