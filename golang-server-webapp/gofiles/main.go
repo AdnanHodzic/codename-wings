@@ -1,49 +1,52 @@
 package main
 
 import (
-	"fmt"
 	"html/template"
-	"log"
 	"net/http"
 	"time"
 )
 
+var tpl *template.Template
+
+func init() {
+	tpl = template.Must(template.New("").Funcs(fm).ParseGlob("templates/*"))
+}
+
+func curTime(t time.Time) string {
+	return t.Format(time.Kitchen)
+}
+
+func covTime(t time.Time) string {
+	loc, _ := time.LoadLocation("Europe/Lisbon")
+	now := time.Now().In(loc)
+	return now.Format(time.Kitchen)
+}
+
+var fm = template.FuncMap{
+	"curTime": curTime,
+	"covTime": covTime,
+}
+
 func main() {
 	http.HandleFunc("/", root)
-	http.HandleFunc("/homersimpson/", render_homer)
-	http.HandleFunc("/homer.png", display_homer)
-	http.HandleFunc("/covilha/", covilha_time)
+	http.HandleFunc("/homersimpson/", renderHomer)
+	http.HandleFunc("/homer.png", displayHomer)
+	http.HandleFunc("/covilha/", covilhaTime)
 	http.ListenAndServe(":80", nil)
 }
 
 func root(w http.ResponseWriter, req *http.Request) {
-	fmt.Fprint(w, "Nothing here, try going to: \n/homersimpson\n/covilha")
+	tpl.ExecuteTemplate(w, "index.gohtml", nil)
 }
 
-func render_homer(w http.ResponseWriter, req *http.Request) {
-	tpl, err := template.ParseFiles("homer.gohtml")
-	if err != nil {
-		log.Fatalln(err)
-	}
+func renderHomer(w http.ResponseWriter, req *http.Request) {
 	tpl.ExecuteTemplate(w, "homer.gohtml", nil)
 }
 
-func display_homer(w http.ResponseWriter, req *http.Request) {
+func displayHomer(w http.ResponseWriter, req *http.Request) {
 	http.ServeFile(w, req, "homer.png")
 }
 
-func covilha_time(w http.ResponseWriter, req *http.Request) {
-	// time in current location + output format
-	t := time.Now()
-	tf := t.Format(time.Kitchen)
-	fmt.Fprint(w, "Time at your location is now: ", tf, "\n")
-
-	// set target timezone
-	loc, _ := time.LoadLocation("Europe/Lisbon")
-	cloc := "Covilha, Portugal"
-
-	// set target timezone time + output format
-	now := time.Now().In(loc)
-	tfc := now.Format(time.Kitchen)
-	fmt.Fprintf(w, "Time in %s is now: %s", cloc, tfc)
+func covilhaTime(w http.ResponseWriter, req *http.Request) {
+	tpl.ExecuteTemplate(w, "covilha_time.gohtml", time.Now())
 }
