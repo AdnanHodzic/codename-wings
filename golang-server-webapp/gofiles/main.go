@@ -12,7 +12,7 @@ func init() {
 	tpl = template.Must(template.New("").Funcs(fm).ParseGlob("templates/*"))
 }
 
-func curTime(t time.Time) string {
+func amsTime(t time.Time) string {
 	return t.Format(time.Kitchen)
 }
 
@@ -23,7 +23,7 @@ func covTime(t time.Time) string {
 }
 
 var fm = template.FuncMap{
-	"curTime": curTime,
+	"amsTime": amsTime,
 	"covTime": covTime,
 }
 

@@ -9,4 +9,7 @@ FROM alpine:latest
 WORKDIR /app
 COPY --from=builder /go/src/app/ /app/
 
+RUN apk add --no-cache tzdata
+ENV TZ Europe/Amsterdam
+
 CMD ["./golang-server-webapp"]
