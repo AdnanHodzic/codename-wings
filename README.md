@@ -23,5 +23,5 @@ make v=0.1
 ### Docker run example:
 
 ```
-docker run -d -p 80:80 docker.io/adnanhodzic/golang-server-webapp:0.1
+docker run -d -p 80:8080 docker.io/adnanhodzic/golang-server-webapp:0.1
 ```

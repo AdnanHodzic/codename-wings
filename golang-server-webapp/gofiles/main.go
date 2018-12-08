@@ -32,7 +32,7 @@ func main() {
 	http.HandleFunc("/homersimpson/", renderHomer)
 	http.HandleFunc("/homer.png", displayHomer)
 	http.HandleFunc("/covilha/", covilhaTime)
-	http.ListenAndServe(":80", nil)
+	http.ListenAndServe(":8080", nil)
 }
 
 func root(w http.ResponseWriter, req *http.Request) {
