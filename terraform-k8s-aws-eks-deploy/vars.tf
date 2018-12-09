@@ -14,8 +14,3 @@ variable "stack-name" {
   default = "terraform-k8s-eks-webapp"
   type    = "string"
 }
-variable "bionic-ami" {
-  default = "ami-02790d1ebf3b5181d"
-  type    = "string"
-}
-

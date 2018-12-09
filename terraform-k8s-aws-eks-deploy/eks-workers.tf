@@ -24,7 +24,7 @@ USERDATA
 resource "aws_launch_configuration" "demo" {
   associate_public_ip_address = true
   iam_instance_profile        = "${aws_iam_instance_profile.demo-node.name}"
-  image_id                    = "${var.bionic-ami}"
+  image_id                    = "${data.aws_ami.eks-worker.id}"
   instance_type               = "t2.micro"
   name_prefix                 = "${var.stack-name}"
   security_groups             = ["${aws_security_group.demo-node.id}"]
@@ -45,7 +45,7 @@ resource "aws_autoscaling_group" "demo" {
 
   tag {
     key                 = "Name"
-    value               = "{var.stack-name}"
+    value               = "${var.stack-name}"
     propagate_at_launch = true
   }
 
