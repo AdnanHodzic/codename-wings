@@ -1,0 +1,27 @@
+---
+- hosts: all
+  gather_facts: no
+  roles:
+   - role: AdnanHodzic.python-ubuntu-bootstrap
+
+  tasks:
+  - name: Install Prometheus and Node Exporter
+    apt:
+      name: "{{ item }}"
+      update_cache: yes
+      state: latest
+    with_items:
+     - prometheus
+     - prometheus-node-exporter
+
+  # set up scraping for wings.hodzic.org
+  - name: Replace default Prometheus config file
+    copy:
+      src: prometheus-conf.yml
+      dest: /etc/prometheus/prometheus.yml
+
+  - name: Restart Prometheus to apply changes
+    service:
+      name: prometheus
+      state: started
+      use: service
