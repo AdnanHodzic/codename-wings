@@ -4,6 +4,8 @@ import (
 	"html/template"
 	"net/http"
 	"time"
+
+	"github.com/prometheus/client_golang/prometheus/promhttp"
 )
 
 var tpl *template.Template
@@ -28,6 +30,8 @@ var fm = template.FuncMap{
 }
 
 func main() {
+	http.Handle("/metrics", promhttp.Handler())
+
 	http.HandleFunc("/", root)
 	http.HandleFunc("/homersimpson/", renderHomer)
 	http.HandleFunc("/homer.png", displayHomer)

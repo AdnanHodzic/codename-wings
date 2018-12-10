@@ -2,7 +2,8 @@
 
 ## golang-server-webapp
 
-Starts a (golang based) HTTP server on port 8080 with web app that has basic routing functionality, i.e:
+Dockerized Golang based server web application. Starts HTTP server on port 8080 with web app
+that has built-in Prometheus exporter and basic routing functionality, i.e:
 
 * Displays which links are available: http://wings.hodzic.org
 * Displays picture of Homer Simpson: http://wings.hodzic.org/homersimpson

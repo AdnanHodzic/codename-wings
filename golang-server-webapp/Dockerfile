@@ -1,4 +1,6 @@
 FROM golang:alpine AS builder
+RUN apk --no-cache add git \
+    && go get -v github.com/prometheus/client_golang/prometheus/promhttp
 
 WORKDIR /go/src/app
 COPY gofiles/ .
