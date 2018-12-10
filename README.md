@@ -164,3 +164,53 @@ Kuberenetes cluster and all its resources will be removed by running:
 ```
 terraform destroy
 ```
+
+## terraform-ansible-prometheus-deploy
+
+Collection of Terraform configuration files which deploy AWS EC2 instance and performing necessary tasks for it to be SSH-able out of box. `hosts` file will also be automatically pouplated with its public IP, after which this hosts file can be use as an inventory file to run Ansible. Once Ansible is ran it will install Prometheus and configure it to scrap metrics from [golang-server-webapp](https://github.com/AdnanHodzic/codename-wings#golang-server-webapp).
+
+### Deploy Prometheus server
+
+#### Server deployment with Terraform
+
+Before anything, run: 
+
+```
+terraform init
+```
+
+To deploy AWS EC2 instance which will be used as Prometheus server, and make all necessary infrastructal changes run:
+
+```
+terraform apply
+```
+
+After server is deployed, up and running you'll get following message:
+
+```
+Apply complete! Resources: 5 added, 0 changed, 0 destroyed.
+
+Outputs:
+
+ip = 54.171.81.213
+```
+
+This same IP has been automatically added to `hosts` file which makes it ready to run Anisble to install and configure Prometheus.
+
+#### Install and configure Prometheus with Ansible
+
+Run Ansible with following command:
+
+```
+ansible-playbook prometheus.yml -i hosts -b -u ubuntu
+```
+
+After Ansible play has finished running, Prometheus will be up and running.
+
+#### Decomission Prometheus server
+
+Prometheus server and all its resources will be removed by running:
+
+```
+terraform destroy
+```
