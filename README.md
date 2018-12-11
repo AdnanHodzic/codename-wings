@@ -1,5 +1,12 @@
 # codename-wings
 
+This project will allow you to **automatically**: 
+
+* deploy a Go web server application with built in Prometheus exporter and basic routing functionality. 
+* deploy the app to Kubernetes cluster on AWS EKS using Terraform.
+* using Terraform deploy Prometheus server on AWS EC2 instance and make all changes necessary for Ansible run.
+* run Ansible play which will configure Prometheus to add Go web server app's metrics to be scraper
+
 ## golang-server-webapp
 
 Dockerized Golang based server web application. Starts HTTP server on port 8080 with web app
