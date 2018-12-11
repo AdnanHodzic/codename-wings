@@ -1,0 +1,13 @@
+*.retry
+*.swp
+**/.DS_Store
+*.swp
+*.swo
+*/terraform.tfvars
+*/terraform.tfstate
+*/terraform.tfstate.backup
+*.terraform.tfvars.swp
+*/.terraform
+*/.terraform.tfstate.lock.info
+*/config-map-aws-auth.yml
+*/hosts
