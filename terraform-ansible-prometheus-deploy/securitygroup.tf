@@ -59,7 +59,7 @@ tags {
       cidr_blocks = ["0.0.0.0/0"]
   }
 tags {
-    Name = "node-exporter-localhost"
+    Name = "${var.p8s}"
   }
 
 }

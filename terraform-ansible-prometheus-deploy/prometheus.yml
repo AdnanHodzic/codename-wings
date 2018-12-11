@@ -23,5 +23,5 @@
   - name: Restart Prometheus to apply changes
     service:
       name: prometheus
-      state: reloaded
+      state: restarted
       use: service
