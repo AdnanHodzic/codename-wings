@@ -2,7 +2,7 @@
 - hosts: all
   gather_facts: no
   roles:
-   - role: AdnanHodzic.python-ubuntu-bootstrap
+   - role: adnanhodzic.python-ubuntu-bootstrap
 
   tasks:
   - name: Install Prometheus and Node Exporter
@@ -23,5 +23,5 @@
   - name: Restart Prometheus to apply changes
     service:
       name: prometheus
-      state: started
+      state: reloaded
       use: service

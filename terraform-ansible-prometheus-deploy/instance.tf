@@ -6,6 +6,9 @@ resource "aws_instance" "prometheus" {
     Name = "prometheus"
   }
 
+  subnet_id = "${aws_subnet.prometheus-public-1.id}"
+  vpc_security_group_ids = ["${aws_security_group.prometheus.id}"]
+
   provisioner "local-exec" {
      command = "echo ${aws_instance.prometheus.public_ip} > hosts"
   }
