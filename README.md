@@ -76,6 +76,14 @@ heptio-authenticator-aws help
 
 ### Deploy Kubernetes cluster to AWS EKS
 
+Create `terraform.tfvars` file where you'll store your AWS credential keys. This file is set to ignore by `.gitignore` so don't worry about pushing your AWS key credentians to Github. Example contents, i.e:
+
+```
+AWS_ACCESS_KEY = "SECRET"
+AWS_SECRET_KEY = "SECRET"
+AWS_REGION = "eu-west-1"
+```
+
 To initialize a working directory (no need to run every time) containing Terraform configuration files, run:
 
 ```
@@ -173,7 +181,9 @@ Collection of Terraform configuration files which deploy AWS EC2 instance and pe
 
 #### Server deployment with Terraform
 
-Before anything, run: 
+Make sure `terraform.tfvars` exists in this directory with same contents as in [Deploy Kubernetes cluster to AWS EKS](https://github.com/AdnanHodzic/codename-wings#deploy-kubernetes-cluster-to-aws-eks) section. 
+
+If this file is present, proceed by running: 
 
 ```
 terraform init
@@ -197,7 +207,35 @@ ip = 54.171.81.213
 
 This same IP has been automatically added to `hosts` file which makes it ready to run Anisble to install and configure Prometheus.
 
+Update DNS records of your domain with this IP, in my case I do this for http://prometheus.hodzic.org record.
+
 #### Install and configure Prometheus with Ansible
+
+##### Ansible pre-requesities
+
+In case you don't have Ansible installed, install by running:
+
+Mac:
+```
+brew install ansible
+```
+
+Ubuntu:
+```
+apt install ansible
+```
+
+You'll have to [import your SSH key pair using AWS Console](https://eu-west-1.console.aws.amazon.com/ec2/v2/home?region=eu-west-1#KeyPairs:sort=keyName). Make sure to update `ssh_key_name` variable in `vars.tf` file with your imported key pair name. Currently this value is set to: `id_rsa_hodzic`.
+
+Reason why this is done manually, instead of [aws_key_pair import](https://www.terraform.io/docs/providers/aws/r/key_pair.html) is because Terraform fails at importing SSH key size of 4096 bits. At the time of writing this, maximum supported key strengh is 2048 bits.
+
+You'll also have to install [adnanhodzic.python-ubuntu-bootstrap](https://galaxy.ansible.com/AdnanHodzic/python-ubuntu-bootstrap) role, which can be done by running:
+
+```
+ansible-galaxy install adnanhodzic.python-ubuntu-bootstrap
+```
+
+##### Server rollout
 
 Run Ansible with following command:
 
@@ -205,7 +243,9 @@ Run Ansible with following command:
 ansible-playbook prometheus.yml -i hosts -b -u ubuntu
 ```
 
-After Ansible play has finished running, Prometheus will be up and running.
+After Ansible play has finished, Prometheus will be up and running.
+
+If you updated your DNS record as suggested in [Server deployment with Terraform](https://github.com/AdnanHodzic/codename-wings#server-deployment-with-terraform) Prometheus will be accessible from your domain on port 9090, in my case: http://prometheus.hodzic.org:9090/
 
 #### Decomission Prometheus server
 
