@@ -35,7 +35,7 @@ Collection of Terraform configuration files which allow you to seamlessly and au
 
 #### AWS credentials config
 
-Pre-requistie is to have AWS key credentials with admin permissions.
+Pre-requisite is to have AWS key credentials with admin permissions.
 
 To keep sync of any AWS key credential changes made to `~/.aws/config/` file:
 ```
@@ -53,7 +53,7 @@ Command line interface for running commands against Kubernetes clusters.
 
 MacOs:
 ```
-brew install aws-iam-authenticator`
+brew install aws-iam-authenticator
 ```
 
 Ubuntu:
@@ -211,7 +211,7 @@ Update DNS records of your domain with this IP, in my case I do this for http://
 
 #### Install and configure Prometheus with Ansible
 
-##### Ansible pre-requesities
+**Ansible run pre-requisites**
 
 In case you don't have Ansible installed, install by running:
 
@@ -235,7 +235,7 @@ You'll also have to install [adnanhodzic.python-ubuntu-bootstrap](https://galaxy
 ansible-galaxy install adnanhodzic.python-ubuntu-bootstrap
 ```
 
-##### Server rollout
+**run Ansible**
 
 Run Ansible with following command:
 
@@ -246,6 +246,11 @@ ansible-playbook prometheus.yml -i hosts -b -u ubuntu
 After Ansible play has finished, Prometheus will be up and running.
 
 If you updated your DNS record as suggested in [Server deployment with Terraform](https://github.com/AdnanHodzic/codename-wings#server-deployment-with-terraform) Prometheus will be accessible from your domain on port 9090, in my case: http://prometheus.hodzic.org:9090/
+
+After which you'll be able to find our [golang-server-webapp](https://github.com/AdnanHodzic/codename-wings#golang-server-webapp) pre-configured as one of our targets ready to be scraped.
+
+![alt text](https://foolcontrol.org/wp-content/uploads/2018/12/prometheus-targets.png)
+
 
 #### Decomission Prometheus server
 
