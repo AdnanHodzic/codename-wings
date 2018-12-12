@@ -179,6 +179,14 @@ After this, in my case [golang-server-webapp](https://foolcontrol.org/wp-content
 
 ![alt text](https://foolcontrol.org/wp-content/uploads/2018/12/wings-index.png)
 
+http://wings.hodzic.org/homersimpson contents:
+
+![alt text](https://foolcontrol.org/wp-content/uploads/2018/12/wings-homer.png)
+
+http://wings.hodzic.org/covilha/ contents:
+
+![alt text](https://foolcontrol.org/wp-content/uploads/2018/12/wings-covilha.png)
+
 ### Decomission Kubernetes cluster from AWS EKS
 
 Kuberenetes cluster and all its resources will be removed by running:
