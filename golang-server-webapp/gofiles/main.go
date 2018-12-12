@@ -5,13 +5,41 @@ import (
 	"net/http"
 	"time"
 
+	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
+)
+
+var (
+	httpRequests = prometheus.NewCounter(
+		prometheus.CounterOpts{
+			Name: "http_requests_total",
+			Help: "Total number of requests",
+		})
+)
+
+var (
+	httpRequestsHomerSimpson = prometheus.NewCounter(
+		prometheus.CounterOpts{
+			Name: "http_requests_total_homersimpson",
+			Help: "Total number of requests to homersimpson/",
+		})
+)
+
+var (
+	httpRequestsCovilha = prometheus.NewCounter(
+		prometheus.CounterOpts{
+			Name: "http_requests_total_covilha",
+			Help: "Total number of requests to covilha/",
+		})
 )
 
 var tpl *template.Template
 
 func init() {
 	tpl = template.Must(template.New("").Funcs(fm).ParseGlob("templates/*"))
+	prometheus.MustRegister(httpRequests)
+	prometheus.MustRegister(httpRequestsHomerSimpson)
+	prometheus.MustRegister(httpRequestsCovilha)
 }
 
 func amsTime(t time.Time) string {
@@ -40,10 +68,12 @@ func main() {
 }
 
 func root(w http.ResponseWriter, req *http.Request) {
+	httpRequests.Inc()
 	tpl.ExecuteTemplate(w, "index.gohtml", nil)
 }
 
 func renderHomer(w http.ResponseWriter, req *http.Request) {
+	httpRequestsHomerSimpson.Inc()
 	tpl.ExecuteTemplate(w, "homer.gohtml", nil)
 }
 
@@ -52,5 +82,6 @@ func displayHomer(w http.ResponseWriter, req *http.Request) {
 }
 
 func covilhaTime(w http.ResponseWriter, req *http.Request) {
+	httpRequestsCovilha.Inc()
 	tpl.ExecuteTemplate(w, "covilha_time.gohtml", time.Now())
 }
