@@ -16,6 +16,13 @@ that has built-in Prometheus exporter and basic routing functionality, i.e:
 * Displays picture of Homer Simpson: http://wings.hodzic.org/homersimpson
 * Displays current time in Amsterdam and in Covilha, Portugal: http://wings.hodzic.org/covilha
 
+Total number of HTTP requests for links above will be available as following queries in Prometheus:
+
+* [http_requests_total](http://prometheus.hodzic.org:9090/graph?g0.range_input=1h&g0.expr=http_requests_total%7Bjob%3D%22golang-server-webapp%22%7D&g0.tab=1)
+* [http_requests_total_homersimpson](http://prometheus.hodzic.org:9090/graph?g0.range_input=1h&g0.expr=http_requests_total_homersimpson&g0.tab=1)
+* [http_requests_total_covilha](http://prometheus.hodzic.org:9090/graph?g0.range_input=1h&g0.expr=http_requests_total_covilha&g0.tab=1)
+
+
 ### Golang run example:
 
 ```
@@ -168,7 +175,7 @@ Update DNS records of your domain with values of `LoadBalancer Ingress` line whi
 LoadBalancer Ingress:     a467d5230fb2311e8bfef0adf1c7b2a4-385229931.eu-west-1.elb.amazonaws.com
 ```
 
-After this, in my case [golang-server-webapp](https://github.com/AdnanHodzic/codename-wings#golang-server-webapp) will now be running on http://wings.hodzic.org
+After this, in my case [golang-server-webapp](https://foolcontrol.org/wp-content/uploads/2018/12/wings-root.png) will now be running on http://wings.hodzic.org
 
 ![alt text](https://foolcontrol.org/wp-content/uploads/2018/12/wings-index.png)
 
@@ -257,6 +264,10 @@ If you updated your DNS record as suggested in [Server deployment with Terraform
 After which you'll be able to find our [golang-server-webapp](https://github.com/AdnanHodzic/codename-wings#golang-server-webapp) pre-configured as one of our targets ready to be scraped.
 
 ![alt text](https://foolcontrol.org/wp-content/uploads/2018/12/prometheus-targets.png)
+
+![alt text](https://foolcontrol.org/wp-content/uploads/2018/12/http-request-total-query.png)
+
+![alt text](https://foolcontrol.org/wp-content/uploads/2018/12/prometheus-all-metrics.png)
 
 
 #### Decomission Prometheus server
