@@ -177,7 +177,7 @@ LoadBalancer Ingress:     a467d5230fb2311e8bfef0adf1c7b2a4-385229931.eu-west-1.e
 
 After this, in my case [golang-server-webapp](https://foolcontrol.org/wp-content/uploads/2018/12/wings-root.png) will now be running on http://wings.hodzic.org
 
-![alt text](https://foolcontrol.org/wp-content/uploads/2018/12/wings-index.png)
+![alt text](https://foolcontrol.org/wp-content/uploads/2018/12/wings-root.png)
 
 http://wings.hodzic.org/homersimpson contents:
 
