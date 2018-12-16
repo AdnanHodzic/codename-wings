@@ -1,7 +1,10 @@
+# Ansible playbook which will install and configure
+# Prometheus to scrape the Golang server WebApp.
 ---
 - hosts: all
   gather_facts: no
   roles:
+  # install Python on newly bootstrapped Ubuntu host
    - role: adnanhodzic.python-ubuntu-bootstrap
 
   tasks:
