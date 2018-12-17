@@ -7,6 +7,11 @@ variable "AMIS" {
   }
 }
 
+# values read from terraform.tfvars
+variable "AWS_ACCESS_KEY" {}
+variable "AWS_SECRET_KEY" {}
+variable "AWS_REGION" {}
+
 variable "ssh_key_name" {
   default = "id_rsa_hodzic"
 }
@@ -14,8 +19,3 @@ variable "ssh_key_name" {
 variable "p8s" {
   default = "prometheus"
 }
-
-# values read from terraform.tfvars
-variable "AWS_ACCESS_KEY" {}
-variable "AWS_SECRET_KEY" {}
-variable "AWS_REGION" {}

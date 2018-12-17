@@ -1,11 +1,15 @@
+# Data Source to get EKS worker AMI id
+# Reference: https://www.terraform.io/docs/providers/aws/d/ami.html
 data "aws_ami" "eks-worker" {
   filter {
+    # look for latest eks worker
     name   = "name"
     values = ["amazon-eks-node-v*"]
   }
 
+  # owned by Amazon
   most_recent = true
-  owners      = ["602401143452"] # Amazon
+  owners      = ["602401143452"]
 }
 
 # EKS currently documents this required userdata for EKS worker nodes to
@@ -21,6 +25,7 @@ set -o xtrace
 USERDATA
 }
 
+# create Launch Configuration which will be used by Autoscaling group (see below)
 resource "aws_launch_configuration" "demo" {
   associate_public_ip_address = true
   iam_instance_profile        = "${aws_iam_instance_profile.demo-node.name}"
@@ -35,6 +40,7 @@ resource "aws_launch_configuration" "demo" {
   }
 }
 
+# create Autoscaling group with two nodes
 resource "aws_autoscaling_group" "demo" {
   desired_capacity     = 2
   launch_configuration = "${aws_launch_configuration.demo.id}"

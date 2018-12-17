@@ -1,4 +1,5 @@
-# outputs
+# output for ~/.kube/config which will allows to use kubectl
+# to connect to our newly setup cluster
 locals {
   kubeconfig = <<KUBECONFIG
 
@@ -34,7 +35,10 @@ output "kubeconfig" {
   value = "${local.kubeconfig}"
 }
 
-# Join configuration
+# Join configuration:
+# output ConfigMap for config-map-aws-auth.yml which will allow us to pass a role to
+# Kubernetes and use that role so node itself can join a cluster after which cluster
+# will be up and running
 
 locals {
   config-map-aws-auth = <<CONFIGMAPAWSAUTH

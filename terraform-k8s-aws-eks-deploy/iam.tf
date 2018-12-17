@@ -1,6 +1,7 @@
 resource "aws_iam_role" "demo-cluster" {
   name = "${var.webapp-cluster-name}"
 
+  # uses Amazon EKS Service IAM Role
   assume_role_policy = <<POLICY
 {
   "Version": "2012-10-17",
@@ -17,11 +18,13 @@ resource "aws_iam_role" "demo-cluster" {
 POLICY
 }
 
+# attach Amazon EKS cluster policy to the role
 resource "aws_iam_role_policy_attachment" "demo-cluster-AmazonEKSClusterPolicy" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKSClusterPolicy"
   role       = "${aws_iam_role.demo-cluster.name}"
 }
 
+# attach Amazon EKS Service policy to the role
 resource "aws_iam_role_policy_attachment" "demo-cluster-AmazonEKSServicePolicy" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKSServicePolicy"
   role       = "${aws_iam_role.demo-cluster.name}"

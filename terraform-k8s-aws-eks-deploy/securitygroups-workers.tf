@@ -1,4 +1,5 @@
-# workers
+# security group for Workers
+# security group for all nodes in our cluster
 resource "aws_security_group" "demo-node" {
   name        = "${var.webapp-node-name}"
   description = "Security group for all nodes in the cluster"
@@ -19,6 +20,7 @@ resource "aws_security_group" "demo-node" {
   }"
 }
 
+# allow nodes to communicate with each, all ports open between the nodes
 resource "aws_security_group_rule" "demo-node-ingress-self" {
   description              = "Allow node to communicate with each other"
   from_port                = 0
@@ -29,6 +31,7 @@ resource "aws_security_group_rule" "demo-node-ingress-self" {
   type                     = "ingress"
 }
 
+# allow access from master nodes to worker nodes
 resource "aws_security_group_rule" "demo-node-ingress-cluster" {
   description              = "Allow worker Kubelets and pods to receive communication from the cluster control plane"
   from_port                = 1025

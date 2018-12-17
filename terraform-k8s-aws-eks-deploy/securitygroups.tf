@@ -1,3 +1,5 @@
+# security group for Cluster
+# general security group for communication with worker nodes
 resource "aws_security_group" "demo-cluster" {
   name        = "${var.webapp-cluster-name}"
   description = "Cluster communication with worker nodes"
@@ -15,6 +17,7 @@ resource "aws_security_group" "demo-cluster" {
   }
 }
 
+# Allow pods to communicate with the cluster API Server
 resource "aws_security_group_rule" "demo-cluster-ingress-node-https" {
   description              = "Allow pods to communicate with the cluster API Server"
   from_port                = 443
@@ -25,8 +28,9 @@ resource "aws_security_group_rule" "demo-cluster-ingress-node-https" {
   type                     = "ingress"
 }
 
+# Allow workstation to communicate with the cluster API Server
 resource "aws_security_group_rule" "demo-cluster-ingress-workstation-https" {
-  cidr_blocks       = ["${local.workstation-external-cidr}"]
+  cidr_blocks       = ["${local.workstation-external-cidr}"] # external-ip.tf
   description       = "Allow workstation to communicate with the cluster API Server"
   from_port         = 443
   protocol          = "tcp"
@@ -34,4 +38,3 @@ resource "aws_security_group_rule" "demo-cluster-ingress-workstation-https" {
   to_port           = 443
   type              = "ingress"
 }
-
