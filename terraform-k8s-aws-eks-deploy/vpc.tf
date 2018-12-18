@@ -7,7 +7,7 @@ module "vpc" {
   name = "vpc-module-demo"
   cidr = "10.0.0.0/16"
 
-  # list Availability Zones using Data Source and use one of 3 available zones of selected region
+  # list Availability Zones using Data Source and use all 3 available zones of selected region
   azs             = ["${slice(data.aws_availability_zones.available.names, 0, 3)}"]
   # private subnet ranges
   private_subnets = ["10.0.1.0/24", "10.0.2.0/24", "10.0.3.0/24"]
